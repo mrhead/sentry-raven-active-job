@@ -1,24 +1,25 @@
-# README
+# Kill Sidekiq with Sentry Raven + ActiveJob
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Steps to reproduce:
 
-Things you may want to cover:
+```
+git clone git@github.com:mrhead/sentry-raven-active-job.git
+cd sentry-raven-active-job
+./bin/setup
+bundle exec rake sentry:crash_sidekiq
+bundle exec sidekiq
+```
 
-* Ruby version
+### Notes
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```ruby
+# lib/tasks/sentry.rake
+namespace :sentry do
+  desc "Crash Sidekiq"
+  task crash_sidekiq: :environment do
+    user = User.create!(name: "John Doe")
+    WelcomeUserJob.perform_later(user)
+    user.destroy!
+  end
+end
+```
