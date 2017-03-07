@@ -1,6 +1,8 @@
 # Kill Sidekiq with Sentry Raven + ActiveJob
 
-Steps to reproduce:
+Example app for: https://github.com/getsentry/raven-ruby/issues/642
+
+## Steps to reproduce:
 
 ```
 git clone git@github.com:mrhead/sentry-raven-active-job.git
@@ -10,7 +12,7 @@ bundle exec rake sentry:crash_sidekiq
 bundle exec sidekiq
 ```
 
-### Notes
+## Notes
 
 ```ruby
 # lib/tasks/sentry.rake
